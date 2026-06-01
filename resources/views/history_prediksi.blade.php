@@ -75,15 +75,18 @@
     
     .modal-content {
         background-color: #ffffff; 
-        margin: 5% auto;
+        margin: 2% auto;
         padding: 0;
         border-radius: 12px;
-        width: 600px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        width: 1100px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.35);
         opacity: 0;
-        transform: scale(0.8);
+        transform: scale(0.9);
         transition: transform 0.35s ease, opacity 0.35s ease;
-        color:  #3b4e71;
+        color: #3b4e71;
     }
     .modal.show .modal-content {
         transform: translateY(0);
@@ -102,6 +105,8 @@
     
     .modal-body {
         padding: 20px;
+        overflow-y: auto;
+        flex: 1;
     }
     
     .modal-footer {
@@ -151,10 +156,65 @@
     }
     .modal-body .fw-bold {
         font-size: 18px;
+    }
+    
+    /* MODAL TABLE STYLING */
+    #detailModal table th {
+        font-size: 15px !important;
+        padding: 12px 10px !important;
+    }
+    #detailModal table td {
+        font-size: 15px !important;
+        padding: 12px 10px !important;
+        vertical-align: middle;
     }    
        /* ===============================
        BUTTONS
     =============================== */
+    /* PAGINATION MODERN STYLING */
+    .pagination {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 10px;
+        padding-left: 0;
+        list-style: none;
+    }
+    .pagination .page-item .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 38px;
+        height: 38px;
+        padding: 0 14px;
+        border-radius: 8px !important;
+        border: 1px solid #e5e7eb;
+        background-color: #ffffff;
+        color: #4b5563;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        margin-left: 4px;
+    }
+    .pagination .page-item.active .page-link {
+        background: linear-gradient(135deg, #304c89, #4361ee) !important;
+        color: #ffffff !important;
+        border-color: transparent !important;
+        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25) !important;
+    }
+    .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+        background-color: #f3f4f6;
+        color: #304c89;
+        border-color: #d1d5db;
+        transform: translateY(-2px);
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #9ca3af;
+        background-color: #f9fafb;
+        cursor: not-allowed;
+        border-color: #e5e7eb;
+    }
     .musiman, .input-manual {
         background-color: #007bff;
         color: #fff;
@@ -435,8 +495,8 @@
         /* Nama Produk (diperbesar) */
         #tabelGabunganBox table th:nth-child(2),
         #tabelGabunganBox table td:nth-child(2){
-            width: 240px !important;
-            min-width: 240px;
+            width: 180px !important;
+            min-width: 180px;
             text-align: left !important;
             padding-left: 15px !important;
             white-space: normal !important;
@@ -445,49 +505,50 @@
         /* α */
         #tabelGabunganBox table th:nth-child(3),
         #tabelGabunganBox table td:nth-child(3){
-            width: 85px !important;
+            width: 60px !important;
         }
 
         /* β */
         #tabelGabunganBox table th:nth-child(4),
         #tabelGabunganBox table td:nth-child(4){
-            width: 85px !important;
+            width: 60px !important;
         }
 
         /* Periode */
         #tabelGabunganBox table th:nth-child(5),
         #tabelGabunganBox table td:nth-child(5){
-            width: 160px !important;
+            width: 75px !important;
         }
 
         /* MAD */
         #tabelGabunganBox table th:nth-child(6),
         #tabelGabunganBox table td:nth-child(6){
-            width: 85px !important;
+            width: 70px !important;
         }
 
         /* MASE */
         #tabelGabunganBox table th:nth-child(7),
         #tabelGabunganBox table td:nth-child(7){
-            width: 85px !important;
+            width: 70px !important;
         }
 
         /* MAPE */
         #tabelGabunganBox table th:nth-child(8),
         #tabelGabunganBox table td:nth-child(8){
-            width: 90px !important;
-        }
-
-        /* Peramalan */
-        #tabelGabunganBox table th:nth-child(9),
-        #tabelGabunganBox table td:nth-child(9){
-            width: 95px !important;
+            width: 180px !important;
         }
 
         /* Tanggal */
+        #tabelGabunganBox table th:nth-child(9),
+        #tabelGabunganBox table td:nth-child(9){
+            width: 130px !important;
+        }
+
+        /* Aksi */
         #tabelGabunganBox table th:nth-child(10),
         #tabelGabunganBox table td:nth-child(10){
             width: 130px !important;
+            white-space: nowrap;
         }
 
         .container.mt-4{
@@ -528,12 +589,99 @@
         .info-python i{
             font-size: 13px;
         }
+        
+        /* TOMBOL AKSI CIRCLE */
+        .btn-circle-aksi {
+            width: 36px !important;
+            height: 36px !important;
+            padding: 0 !important;
+            border-radius: 50% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 16px !important;
+            border: none !important;
+            color: #fff !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .btn-circle-aksi:hover {
+            transform: scale(1.1);
+            color: #fff !important;
+        }
+        .btn-eye-aksi { background-color: #3b82f6 !important; }
+        .btn-pdf-aksi { background-color: #10b981 !important; }
+        .btn-del-aksi { background-color: #ef4444 !important; }
+        .btn-del-aksi { background-color: #ef4444 !important; }
+
+        /* SEARCH BOX STYLING FROM PENJUALAN */
+        .search-box{
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input{
+            width: 400px;
+            height: 40px;
+
+            border-radius: 7px;
+            border: 1px solid #dbe2ea;
+
+            padding-left: 40px;
+            padding-right: 15px;
+
+            font-size: 14px;
+            background: #fff;
+
+            transition: .3s;
+        }
+
+        .search-box input:focus{
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 0 0 4px rgba(67,97,238,.12);
+        }
+
+        .search-box i{
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        body.dark .search-box input{
+            background: #334155;
+            color: #fff;
+            border-color: #475569;
+        }
 </style>
 <div class="container mt-4">
-    <h2 class="mb-3">History Prediksi & Stok</h2>
+    <h2 class="mb-3" style="border-left: 5px solid #304c89; padding-left: 10px;"><i class="fas fa-history me-2"></i> History Prediksi Penjualan</h2>
+
+    @if(session('success'))
+    <div class="alert" style="background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:8px;padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-check-circle" style="font-size:18px;"></i>
+        <span>{{ session('success') }}</span>
+        <button onclick="this.parentElement.style.display='none'" style="margin-left:auto;background:none;border:none;font-size:18px;cursor:pointer;color:#065f46;">&times;</button>
+    </div>
+    @endif
 
     <div class="card shadow card-custom">
-            <div id="tabelGabunganBox" class="table-responsive">
+        <!-- SEARCH BOX -->
+        <div class="d-flex justify-content-end p-3 border-bottom">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Cari produk, periode, atau bulan..."
+                    value="{{ request('search') }}"
+                 >
+            </div>
+        </div>
+        
+        <div id="tabelGabunganBox" class="table-responsive">
                 <table class="table table-bordered mt-3">
                     <thead class="custom-table-head">
                         <tr>
@@ -544,35 +692,52 @@
                             <th>Periode</th>
                             <th>MAD</th>
                             <th>MASE</th>
-                            <th>MAPE</th>
-                            <th>Peramalan</th>
+                            <th>MAPE (%)</th>
                             <th>Tanggal</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($items as $index => $it)
+                            @php $peramalanArr = json_decode($it->peramalan, true); @endphp
                             <tr>
                                 <td>{{ $index + $items->firstItem() }}</td>
                                 <td>{{ $it->nama_produk }}</td>
                                 <td>{{ $it->alpha }}</td>
                                 <td>{{ $it->beta }}</td>
-                                <td>{{ $it->periode_prediksi }}</td>
+                                <td>{{ $it->periode_prediksi }} Bulan</td>
                                 <td>{{ $it->mad }}</td>
                                 <td>{{ $it->mase }}</td>
-                                <td>{{ $it->mape }}%</td>
-                                <td>
-                                    @php
-                                        $peramalanArr = json_decode($it->peramalan, true);
-                                        $totalPeramalan = is_array($peramalanArr) ? array_sum($peramalanArr) : 0;
-                                    @endphp
-                                    {{ number_format($totalPeramalan) }}
+                                <td style="white-space: nowrap;">
+                                    {{ number_format($it->mape, 1) }}%
+                                    @if($it->mape < 10)
+                                        <span class="badge" style="background-color: #10b981; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Sangat Baik</span>
+                                    @elseif($it->mape <= 20)
+                                        <span class="badge" style="background-color: #eab308; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Baik</span>
+                                    @elseif($it->mape <= 50)
+                                        <span class="badge" style="background-color: #f97316; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Wajar</span>
+                                    @else
+                                        <span class="badge" style="background-color: #ef4444; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Buruk</span>
+                                    @endif
                                 </td>
                                 <td>{{ $it->tanggal }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-info text-white" onclick="openDetailModal({{ $it->id }})" title="Lihat Detail">
+                                    <!-- Detail -->
+                                    <button class="btn btn-circle-aksi btn-eye-aksi me-1" onclick="openDetailModal({{ $it->id }})" title="Lihat Detail">
                                         <i class="fas fa-eye"></i>
                                     </button>
+                                    <!-- Export PDF -->
+                                    <a href="{{ route('history.exportPdf', $it->id) }}" target="_blank" class="btn btn-circle-aksi btn-pdf-aksi me-1" title="Export PDF">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
+                                    <!-- Hapus -->
+                                    <form action="{{ route('history.destroy', $it->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data prediksi ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-circle-aksi btn-del-aksi" title="Hapus">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             
@@ -597,26 +762,55 @@
                                         $fLabels[] = $lastMonth->copy()->addMonths($i)->format('Y-m');
                                     }
                                 }
+                                
+                                // Kalkulasi Holt untuk historical data (fitted values)
+                                $fittedRows = [];
+                                if(count($hData) >= 2) {
+                                    $l = (float)$hData[0];
+                                    $b = (float)$hData[1] - (float)$hData[0];
+                                    $alpha = (float)$it->alpha;
+                                    $beta = (float)$it->beta;
+                                    
+                                    for ($t = 1; $t < count($hData); $t++) {
+                                        $forecast = $l + $b;
+                                        $error = abs($hData[$t] - $forecast);
+                                        $ape = $hData[$t] != 0 ? ($error / $hData[$t]) * 100 : 0;
+                                        $prev_l = $l;
+                                        
+                                        $l = $alpha * $hData[$t] + (1 - $alpha) * ($l + $b);
+                                        $b = $beta * ($l - $prev_l) + (1 - $beta) * $b;
+                                        
+                                        $fittedRows[$t] = [
+                                            'alpha' => round($l, 4),
+                                            'beta' => round($b, 4),
+                                            'forecast' => round($forecast, 2),
+                                            'mape' => round($ape, 1)
+                                        ];
+                                    }
+                                }
                             @endphp
                             
                             <script>
                                 window.historyDataDetail = window.historyDataDetail || {};
                                 window.historyDataDetail[{{ $it->id }}] = {
                                     nama_produk: "{{ $it->nama_produk }}",
+                                    alpha: "{{ $it->alpha }}",
+                                    beta: "{{ $it->beta }}",
                                     historyLabels: @json($hLabels),
                                     historyData: @json($hData),
                                     forecastLabels: @json($fLabels),
-                                    forecastData: @json($fData)
+                                    forecastData: @json($fData),
+                                    fittedRows: @json($fittedRows)
                                 };
                             </script>
                         @empty
-                            <tr><td colspan="11" class="text-center">Belum ada history prediksi.</td></tr>
+                            <tr><td colspan="10" class="text-center">Belum ada history prediksi.</td></tr>
                         @endforelse
                     </tbody>
                 </table>
 
-            <div class="mt-3">
-                {{ $items->links() }}
+            <div class="mt-4 d-flex justify-content-end">
+                {{ $items->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>
@@ -624,33 +818,40 @@
 
 <!-- MODAL DETAIL PREDIKSI -->
 <div class="modal" id="detailModal">
-    <div class="modal-content" style="width: 800px; max-width: 95%;">
+    <div class="modal-content">
         <div class="modal-header">
             Detail Prediksi: <strong id="modalTitle" style="margin-left: 8px;"></strong>
         </div>
         <div class="modal-body">
             
             <!-- GRAFIK -->
+            <h5 class="mb-3" style="color: #3b4e71; font-size: 20px; font-weight: bold; border-left: 5px solid #304c89; padding-left: 10px;"><i class="fas fa-chart-line me-2"></i>   Grafik Aktual dan Prediksi</h5>
             <div class="card shadow card-custom mb-4" style="padding: 15px !important;">
-                <div style="height: 250px; width: 100%;">
+                <div style="height: 400px; width: 100%;">
                     <canvas id="historyDetailChart"></canvas>
                 </div>
             </div>
             
             <!-- TABEL FORECAST -->
-            <h5 class="mb-3" style="color: #3b4e71; font-weight: bold;">Table Forecast (Peramalan)</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="custom-table-head">
+            <h5 class="mb-3" style="color: #3b4e71; font-size: 20px; font-weight: bold; border-left: 5px solid #304c89; padding-left: 10px;"><i class="fas fa-table me-2"></i>   Table Iterasi Lengkap</h5>
+            <div class="card shadow card-custom mb-4" style="padding: 15px !important;">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-bordered mb-0" style="width: 100%; min-width: 100%;">
+                    <thead class="custom-table-head" style="position: sticky; top: 0; z-index: 1;">
                         <tr>
+                            <th>No</th>
                             <th>Bulan</th>
-                            <th>Forecast</th>
-                            <th>Rekomendasi (ceil)</th>
+                            <th>Aktual</th>
+                            <th>α</th>
+                            <th>𝛽</th>
+                            <th>Peramalan</th>
+                            <th>MAPE (%)</th>
                         </tr>
                     </thead>
                     <tbody id="modalTableBody">
                     </tbody>
                 </table>
+            </div>
             </div>
 
         </div>
@@ -662,6 +863,37 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // AUTO SEARCH LOGIC (Tanpa tekan Enter, dengan debounce)
+    let searchTimeout = null;
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value;
+            
+            searchTimeout = setTimeout(() => {
+                const url = new URL(window.location.href);
+                if (query) {
+                    url.searchParams.set('search', query);
+                } else {
+                    url.searchParams.delete('search');
+                }
+                // Reset to page 1 when searching
+                url.searchParams.delete('page');
+                window.location.href = url.toString();
+            }, 600); // Tunggu 600ms setelah user berhenti mengetik
+        });
+        
+        // Letakkan kursor di akhir teks saat halaman dimuat (agar enak saat ngetik)
+        if (searchInput.value) {
+            const val = searchInput.value;
+            searchInput.focus();
+            searchInput.value = '';
+            searchInput.value = val;
+        }
+    }
+
     let detailChart = null;
 
     function openDetailModal(id) {
@@ -672,25 +904,84 @@
         
         // Populate Table
         let tbody = '';
-        data.forecastLabels.forEach((lbl, i) => {
-            let val = data.forecastData[i] || 0;
+        let no = 1;
+        
+        const alphaGlobal = data.alpha;
+        const betaGlobal = data.beta;
+
+        // Helper format bulan 
+        const formatLabel = (lbl) => {
+            const bulanMap = {
+                "01":"Januari",
+                "02":"Februari",
+                "03":"Maret",
+                "04":"April",
+                "05":"Mei",
+                "06":"Juni",
+                "07":"Juli",
+                "08":"Agustus",
+                "09":"September",
+                "10":"Oktober",
+                "11":"November",
+                "12":"Desember"
+            };
+
+            if (typeof lbl === "string" && lbl.includes("-")) {
+                let parts = lbl.split('-');
+                if(parts.length >= 2) {
+                    const year = parts[0];
+                    const month = parts[1];
+                    return `${bulanMap[month] || month} ${year}`;
+                }
+            }
+            return String(lbl || "");
+        };
+
+        // 1. Loop History Data
+        data.historyLabels.forEach((lbl, i) => {
+            let bulan = formatLabel(lbl);
+            let aktual = data.historyData[i];
             
-            // Format Bulan
-            let parts = lbl.split('-');
-            let monthName = '';
-            if(parts.length >= 2) {
-                const b = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                monthName = b[parseInt(parts[1]) - 1] + ' ' + parts[0];
-            } else {
-                monthName = lbl;
+            let alphaCol = '-';
+            let betaCol = '-';
+            let peramalanCol = '-';
+            let mapeCol = '-';
+            
+            if (i > 0 && data.fittedRows && data.fittedRows[i]) {
+                let fit = data.fittedRows[i];
+                alphaCol = fit.alpha;
+                betaCol = fit.beta;
+                peramalanCol = Number(fit.forecast).toFixed(2);
+                mapeCol = Number(fit.mape).toFixed(1) + '%';
             }
             
             tbody += `<tr>
-                <td>${monthName}</td>
-                <td>${Number(val).toFixed(2)}</td>
-                <td>${Math.ceil(val)}</td>
+                <td class="text-center">${no++}</td>
+                <td>${bulan}</td>
+                <td class="text-center">${aktual}</td>
+                <td class="text-center">${alphaCol}</td>
+                <td class="text-center">${betaCol}</td>
+                <td class="text-center">${peramalanCol}</td>
+                <td class="text-center">${mapeCol}</td>
             </tr>`;
         });
+        
+        // 2. Loop Forecast Data
+        data.forecastLabels.forEach((lbl, i) => {
+            let bulan = formatLabel(lbl);
+            let val = data.forecastData[i] || 0;
+            
+            tbody += `<tr>
+                <td class="text-center">${no++}</td>
+                <td>${bulan}</td>
+                <td class="text-center">-</td>
+                <td class="text-center">-</td>
+                <td class="text-center">-</td>
+                <td class="text-center">${Number(val).toFixed(2)}</td>
+                <td class="text-center">-</td>
+            </tr>`;
+        });
+        
         document.getElementById('modalTableBody').innerHTML = tbody;
         
         // Draw Chart
@@ -699,16 +990,6 @@
         }
         
         const ctx = document.getElementById('historyDetailChart').getContext('2d');
-        
-        // Helper format bulan grafik
-        const formatLabel = (lbl) => {
-            let parts = lbl.split('-');
-            if(parts.length >= 2) {
-                const b = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-                return b[parseInt(parts[1]) - 1] + ' ' + parts[0];
-            }
-            return lbl;
-        };
         
         const hLabelsFormat = data.historyLabels.map(formatLabel);
         const fLabelsFormat = data.forecastLabels.map(formatLabel);
@@ -724,16 +1005,12 @@
                 datasets: [
                     { 
                         label: 'Penjualan Aktual', 
-                        data: hSeries, 
-                        borderColor: '#60a5fa', 
-                        backgroundColor: '#60a5fa',
+                        data: hSeries,
                         borderWidth: 2 
                     },
                     { 
-                        label: 'Prediksi', 
-                        data: fSeries, 
-                        borderColor: '#fb7185', 
-                        backgroundColor: '#fb7185',
+                        label: 'Prediksi DES (Holt)', 
+                        data: fSeries,
                         borderWidth: 3, 
                         borderDash: [6,4] 
                     }

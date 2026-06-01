@@ -331,8 +331,16 @@
    .button-wrap{
         grid-column: 4;
         justify-self: end;
-        align-self: end;
+        align-self: start;
         margin-left: 0 !important;
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+        gap: 6px;
+        border-left: 1.5px solid #d1d5db;
+        padding-left: 28px;
+        margin-top: 10px;
+        margin-bottom: 8px;
     }
 
     /* BUTTON */
@@ -415,7 +423,7 @@
     }
 
         .event-note-wrapper{
-            margin-top: 14px;
+            margin-top: -20px;
             padding-left: 2px;
         }
 
@@ -424,6 +432,61 @@
             color: #9ca3af;
             font-weight: 500;
             line-height: 1.6;
+        }
+
+        /* CUSTOM SELECT PRODUK */
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .custom-select-wrapper .select-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 17px;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .custom-select-wrapper .select-chevron {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .prediksi-select-styled {
+            width: 100%;
+            height: 48px;
+            border-radius: 7px;
+            border: none;
+            background: linear-gradient(135deg, #304c89, #4361ee);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 0 44px 0 46px;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 14px rgba(67,97,238,0.25);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .prediksi-select-styled:focus {
+            box-shadow: 0 0 0 3px rgba(67,97,238,0.35);
+        }
+        .prediksi-select-styled:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(67,97,238,0.3);
+        }
+        .prediksi-select-styled option {
+            background: #304c89;
+            color: #fff;
+            font-weight: 600;
         }
         /* ======================================
         ATUR LEBAR MASING-MASING KOLOM
@@ -462,7 +525,7 @@
         /* Periode */
         #tabelGabunganBox table th:nth-child(5),
         #tabelGabunganBox table td:nth-child(5){
-            width: 160px !important;
+            width: 90px !important;
         }
 
         /* MAD */
@@ -556,15 +619,19 @@
                 <div class="prediksi-group">
                     <label>Pilih Produk</label>
 
-                    <select name="kode_produk" class="prediksi-input" required>
-                        <option value="">-- Pilih Produk --</option>
+                    <div class="custom-select-wrapper">
+                        <i class="fas fa-box select-icon"></i>
+                        <select name="kode_produk" class="prediksi-select-styled" required>
+                            <option value="">-- Pilih Produk --</option>
 
-                        @foreach($produks as $p)
-                            <option value="{{ $p->kode_produk }}">
-                                {{ $p->nama_produk }} ({{ $p->kode_produk }})
-                            </option>
-                        @endforeach
-                    </select>
+                            @foreach($produks as $p)
+                                <option value="{{ $p->kode_produk }}">
+                                    {{ $p->nama_produk }} ({{ $p->kode_produk }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <i class="fas fa-chevron-down select-chevron"></i>
+                    </div>
                 </div>
 
                 <!-- PERIODE -->
@@ -588,7 +655,6 @@
 
               <!-- BUTTON -->
                 <div class="button-wrap">
-
                     <div class="prediksi-button-wrap">
                         <button type="submit" class="btn-prediksi">
                             <i class="fas fa-chart-line"></i>
@@ -600,7 +666,6 @@
                         <i class="fas fa-info-circle"></i>
                         <span>Python Statsmodels</span>
                     </div>
-
                 </div>
 
             </div>
@@ -635,7 +700,7 @@
                             <th>Periode</th>
                             <th>MAD</th>
                             <th>MASE</th>
-                            <th>MAPE</th>
+                            <th>MAPE (%)</th>
                             <th>Peramalan</th>
                             <th>Tanggal</th>
                         </tr>

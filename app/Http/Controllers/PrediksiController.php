@@ -227,7 +227,7 @@ class PrediksiController extends Controller
         $mape = round(
             collect($fittedRows)
             ->avg('mape'),
-            3
+            1
         );
 
         $mase = round(
@@ -384,6 +384,7 @@ class PrediksiController extends Controller
     ) {
         $pythonPath =
             "/usr/bin/python3";
+            // "/home/dimn3613/virtualenv/public_html/rfkalfiansyah.my.id/skripsi/3.12/bin/python";
 
         $scriptPath =
             base_path(
@@ -518,7 +519,7 @@ class PrediksiController extends Controller
                 'mape' =>
                     round(
                         $ape,
-                        3
+                        1
                     )
             ];
         }

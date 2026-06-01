@@ -66,6 +66,8 @@ Route::get('/prediksi/history/{id}', [PrediksiController::class, 'historyShow'])
     ->name('prediksi.history.show');
 
     Route::get('/history', [HistoryPrediksiController::class, 'index'])->name('history.index');
+    Route::delete('/history/{id}', [HistoryPrediksiController::class, 'destroy'])->middleware('auth')->name('history.destroy');
+    Route::get('/history/{id}/export-pdf', [HistoryPrediksiController::class, 'exportPdf'])->middleware('auth')->name('history.exportPdf');
 
 /*
 |--------------------------------------------------------------------------

@@ -246,8 +246,8 @@ function updatePredictionTable(data) {
                 <td>
                     ${
                         metric
-                        ? metric.mape + "%"
-                        : "0%"
+                        ? Number(metric.mape).toFixed(1) + "%"
+                        : "0.0%"
                     }
                 </td>
 
@@ -381,10 +381,17 @@ document.getElementById('formPrediksi').addEventListener('submit', function(e){
         updatePredictionTable(data);
 
         /* GRAFIK */
-        const historyLabels = data.history.labels || [];
-        const historyData = data.history.data || [];
+        let historyLabels = data.history.labels || [];
+        let historyData = data.history.data || [];
         const forecastLabels = data.forecast.labels || [];
         const forecastData = data.forecast.data || [];
+        
+        // Batasi total periode menjadi 12 (termasuk prediksi)
+        const historyLimit = 12 - forecastData.length;
+        if (historyLabels.length > historyLimit && historyLimit > 0) {
+            historyLabels = historyLabels.slice(-historyLimit);
+            historyData = historyData.slice(-historyLimit);
+        }
 
         if(chartPrediksi) chartPrediksi.destroy();
 
