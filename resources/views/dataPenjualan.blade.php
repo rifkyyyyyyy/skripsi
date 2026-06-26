@@ -90,6 +90,7 @@
         transition: all 0.3s ease;
         font-weight: 500;
         color: var(--text-main);
+        box-sizing: border-box;
     }
     .search-box input:focus {
         outline: none;

@@ -33,6 +33,7 @@
         font-weight: 500;
         color: var(--text-main);
         font-family: 'Outfit', sans-serif;
+        box-sizing: border-box;
     }
     .search-box input:focus {
         outline: none;
