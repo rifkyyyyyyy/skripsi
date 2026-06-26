@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('periode_prediksi');
             
             $table->decimal('mad', 12, 4);
-            $table->decimal('mase', 12, 4);
+            $table->decimal('mse', 12, 4);
             $table->decimal('mape', 12, 4);
 
             $table->longText('peramalan');

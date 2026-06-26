@@ -15,7 +15,7 @@ class Prediksi extends Model
         'beta',
         'periode_prediksi',
         'mad',
-        'mase',
+        'mse',
         'mape',
         'peramalan',
         'tanggal'

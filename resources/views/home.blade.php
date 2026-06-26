@@ -1,650 +1,198 @@
 @extends('layout.sidebar')
 @section('content')
 <style>
-:root {
-    --card-bg: #ffffff;
-    --card-text: #3b4e71;
-    --chart-bg: #ffffff;
-    --chart-grid: #d1d5db;
-    --chart-text: #1e293b;
-    --icon-color: #374151;
-}
-
-body.dark {
-    --card-bg: #334155;
-    --card-text: #e2e8f0;
-    --chart-bg: #334155;
-    --chart-grid: #ffffff;
-    --chart-text: #f8fafc;
-    --icon-color: #ffffff;
-}
-
-.dashboard-card,
-.chart-box {
-    background-color: var(--card-bg) !important;
-    color: var(--card-text) !important;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: background 0.3s ease, color 0.3s ease;
-}
-.entries-control select{
-    width: 200px;
-    height: 50px;
-
-    border: 2px solid #e5e7eb;
-    border-radius: 18px;
-
-    background: linear-gradient(135deg, #304c89, #4361ee);
-    color: #ffffff;
-
-    font-size: 18px;
-    font-weight: 600;
-
-   padding-left: 50px;
-
-    cursor: pointer;
-
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    transition: .3s;
-    margin-top: -10px;
-}
-
-.entries-control{
-    position: relative;
-}
-
-.entries-control::after{
-    content: "\f078";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-
-    position: absolute;
-    right: 20px;
-    top: 40%;
-
-    transform: translateY(-50%);
-
-    color: #ffffff;
-    pointer-events: none;
-}
-
-.entries-control select:hover{
-    border-color: #d1d5db;
-}
-
-.entries-control select:focus{
-    outline: none;
-    border-color: #4361ee;
-    box-shadow: 0 0 0 4px rgba(67,97,238,.12);
-}
-
-.month-icon{
-    position: absolute;
-    left: 18px;
-    top: 40%;
-
-    transform: translateY(-50%);
-
-    color: #ffffff;
-    z-index: 2;
-}
-
-
-/* ==========================
-   CARD JUMLAH PRODUK MODERN
-========================== */
-.product-card{
-    position: relative;
-    flex: 0 0 380px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 28px;
-
-    background: linear-gradient(135deg, #304c89, #4361ee);
-    box-shadow: 0 12px 30px rgba(67, 97, 238, 0.35);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px;
-}
-
-/* text kiri */
-.product-content{
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.product-content h6{
-    color: rgba(255,255,255,0.8);
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 100px;
-}
-
-.product-content h2{
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 1;
-    margin: 0;
-
-    /* naikkan angka lebih ke tengah atas */
-    position: relative;
-    top: -80px;
-}
-
-.product-content p{
-    color: rgba(255,255,255,0.85);
-    font-size: 12px;
-    margin-top: -60px;
-}
-
-/* icon kanan */
-.product-icon-box{
-    position: absolute;
-    right: 35px;
-    top: 35px;
-
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(6px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    z-index: 2;
-}
-
-.product-icon-box i{
-    color: white;
-    font-size: 25px;
-}
-
-/* dekorasi bulat */
-.circle{
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-}
-
-.circle-1{
-    width: 140px;
-    height: 140px;
-    top: -45px;
-    right: 60px;
-}
-
-.circle-2{
-    width: 230px;
-    height: 230px;
-    bottom: -90px;
-    right: -50px;
-}
-
-/* ==========================
-   CARD JUMLAH PERAMALAN MODERN
-========================== */
-.peramalan-card{
-    position: relative;
-    flex: 0 0 380px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 28px;
-
-    background: linear-gradient(135deg, #896730, #fda400);
-    box-shadow: 0 12px 30px rgba(238, 192, 67, 0.35);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px;
-}
-
-/* text kiri */
-.peramalan-content{
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.peramalan-content h6{
-    color: rgba(255,255,255,0.8);
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 100px;
-}
-
-.peramalan-content h2{
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 1;
-    margin: 0;
-
-    /* naikkan angka lebih ke tengah atas */
-    position: relative;
-    top: -80px;
-}
-
-.peramalan-content p{
-    color: rgba(255,255,255,0.85);
-    font-size: 12px;
-    margin-top: -60px;
-}
-
-/* icon kanan */
-.peramalan-icon-box{
-    position: absolute;
-    right: 35px;
-    top: 35px;
-
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(6px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    z-index: 2;
-}
-
-.peramalan-icon-box i{
-    color: white;
-    font-size: 25px;
-}
-
-/* dekorasi bulat */
-.circle{
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-}
-
-.circle-1{
-    width: 140px;
-    height: 140px;
-    top: -45px;
-    right: 60px;
-}
-
-.circle-2{
-    width: 230px;
-    height: 230px;
-    bottom: -90px;
-    right: -50px;
-}
-
-/* ==========================
-   CARD JUMLAH PENJUALAN MODERN
-========================== */
-.penjualan-card{
-    position: relative;
-    flex: 0 0 380px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 28px;
-
-    background: linear-gradient(135deg, #00733f, #00dd51);
-    box-shadow: 0 12px 30px rgba(84, 238, 67, 0.35);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px;
-}
-
-/* text kiri */
-.penjualan-content{
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.penjualan-content h6{
-    color: rgba(255,255,255,0.8);
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 100px;
-}
-
-.penjualan-content h2{
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 1;
-    margin: 0;
-
-    /* naikkan angka lebih ke tengah atas */
-    position: relative;
-    top: -80px;
-}
-
-.penjualan-content p{
-    color: rgba(255,255,255,0.85);
-    font-size: 12px;
-    margin-top: -60px;
-}
-
-/* icon kanan */
-.penjualan-icon-box{
-    position: absolute;
-    right: 35px;
-    top: 35px;
-
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(6px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    z-index: 2;
-}
-
-.penjualan-icon-box i{
-    color: white;
-    font-size: 25px;
-}
-
-/* dekorasi bulat */
-.circle{
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-}
-
-.circle-1{
-    width: 140px;
-    height: 140px;
-    top: -45px;
-    right: 60px;
-}
-
-.circle-2{
-    width: 230px;
-    height: 230px;
-    bottom: -90px;
-    right: -50px;
-}
-
-/* ==========================
-   WRAPPER CHART
-========================== */
-.trend-card{
-    flex: 2;
-    padding: 25px;
-    height: 680px;
-    border-radius: 26px;
-}
-
-.penjualan-produk-card{
-    flex: 1;
-    padding: 0;
-    height: auto;
-    min-height: 400px; /* tambahkan tinggi */
-    border-radius: 26px;
-}
-
-/* HEADER */
-.chart-header{
-    display:flex;
-    justify-content:flex-end;
-    margin-bottom:20px;
-}
-
-/* TITLE PRODUK STYLE */
-.custom-title-produk{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:24px 28px;
-    border-bottom:1px solid rgba(0,0,0,0.08);
-}
-
-body.dark .custom-title-produk{
-    border-bottom:1px solid rgba(255,255,255,0.1);
-}
-
-.blue-line-produk{
-    width:6px;
-    height:28px;
-    background:linear-gradient(135deg, #304c89, #4361ee);
-}
-
-.custom-title-produk h4{
-    margin:0;
-    font-size:18px;
-    font-weight:700;
-}
-
-/* TITLE PENJUALAN STYLE */
-.custom-title-penjualan{
-    position: relative;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:24px 28px;
-}
-
-.custom-title-penjualan::after{
-    content:'';
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    bottom:55px; /* naikkan garis */
-    
-    height:1px;
-    background:rgba(0,0,0,0.08);
-}
-
-body.dark .custom-title-penjualan::after{
-    background:rgba(255,255,255,0.1);
-}
-
-.blue-line-penjualan{
-    width:6px;
-    height:28px;
-    background:linear-gradient(135deg, #304c89, #4361ee);
-    margin-top: -140px;
-    margin-left:-20px;
-}
-
-.custom-title-penjualan h4{
-    margin:0;
-    font-size:18px;
-    font-weight:700;
-    margin-top: -140px;
-}
-
-/* PIE CHART */
-.chart-wrapper{
-    width:100%;
-    height:550px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    margin-left: -25px;
-}
-
-#chartPenjualan{
-    width:100% !important;
-    height:100% !important;
-}
-
-/* SUBTITLE */
-.chart-subtitle{
-    text-align:center;
-    color:#9ca3af;
-    font-size:14px;
-    margin-top:15px;
-    padding-bottom:20px;
-}
-
-/* LINE CHART */
-#salesChart{
-    width:100% !important;
-    height:550px !important;
-}
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .stat-info h6 {
+        color: var(--text-muted);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .stat-info h2 {
+        color: var(--text-main);
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 5px 0;
+    }
+
+    .stat-info p {
+        color: var(--text-muted);
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+
+    .icon-primary { background: rgba(67, 24, 255, 0.1); color: var(--primary-color); }
+    .icon-success { background: rgba(1, 181, 116, 0.1); color: #01B574; }
+    .icon-warning { background: rgba(255, 171, 0, 0.1); color: #FFAB00; }
+
+    .dashboard-charts {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+    }
+
+    .page-section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 15px;
+        border-left: 4px solid var(--primary-color);
+        padding-left: 10px;
+    }
+
+    .chart-header {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+
+    /* Month Selector */
+    .entries-select-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    .entries-select-wrapper .entries-chevron {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 14px;
+        pointer-events: none;
+    }
+    .entries-select-wrapper select {
+        height: 42px;
+        padding: 0 40px 0 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        border: 1px solid var(--glass-border);
+        background: var(--glass-bg);
+        color: var(--text-main);
+        outline: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        appearance: none;
+        -webkit-appearance: none;
+        font-family: 'Outfit', sans-serif;
+    }
+    .entries-select-wrapper select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(67, 24, 255, 0.1);
+    }
+
+    @media (max-width: 992px) {
+        .dashboard-stats {
+            grid-template-columns: 1fr;
+        }
+        .dashboard-charts {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 
-<div class="container-fluid" style="padding-top: 50px;">
+<div class="container-fluid" style="padding-top: 20px;">
 
-    <!-- Kartu Info -->
-    <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: nowrap;">
-                <!-- Kartu Produk -->
-                <div class="product-card shadow">
-                    
-                    <!-- dekorasi bulat background -->
-                    <div class="circle circle-1"></div>
-                    <div class="circle circle-2"></div>
-
-                    <!-- isi kiri -->
-                    <div class="product-content">
-                        <h6>JUMLAH PRODUK</h6>
-
-                        <h2>{{ number_format($totalProduk, 0, ',', '.') }}</h2>
-
-                        <p>Total Produk Tersedia</p>
-                    </div>
-
-                    <!-- icon kanan -->
-                    <div class="product-icon-box">
-                        <i class="fas fa-box"></i>
-                    </div>
-
-                </div>
-
-                <!-- Kartu Penjualan -->
-                <div class="penjualan-card shadow">
-                    
-                    <!-- dekorasi bulat background -->
-                    <div class="circle circle-1"></div>
-                    <div class="circle circle-2"></div>
-
-                    <!-- isi kanan -->
-                    <div class="penjualan-content">
-                        <h6>JUMLAH PENJUALAN</h6>
-
-                        <h2>{{ number_format($totalPenjualan, 0, ',', '.') }}</h2>
-
-                        <p>Total Penjualan {{ $namaBulan }} {{ $tahun }}</p>
-                    </div>
-
-                    <!-- icon kanan -->
-                    <div class="penjualan-icon-box">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-
-                </div>
-
-                <!-- Kartu Peramalan -->
-                <div class="peramalan-card shadow">
-                    
-                    <!-- dekorasi bulat background -->
-                    <div class="circle circle-1"></div>
-                    <div class="circle circle-2"></div>
-
-                    <!-- isi kanan -->
-                    <div class="peramalan-content">
-                        <h6>DATA PERAMALAN DES</h6>
-
-                        <h2>{{ number_format($totalPeramalan, 0, ',', '.') }}</h2>
-
-                        <p>Total Double Exp. Smoothing</p>
-                    </div>
-
-                    <!-- icon kanan -->
-                    <div class="peramalan-icon-box">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-
-                </div>
-
+    <!-- Top Info Cards -->
+    <div class="dashboard-stats">
+        <div class="card-custom stat-card">
+            <div class="stat-info">
+                <h6>Jumlah Produk</h6>
+                <h2>{{ number_format($totalProduk, 0, ',', '.') }}</h2>
+                <p>Total Produk Tersedia</p>
             </div>
+            <div class="stat-icon icon-primary">
+                <i class="fas fa-box"></i>
+            </div>
+        </div>
 
+        <div class="card-custom stat-card">
+            <div class="stat-info">
+                <h6>Jumlah Penjualan</h6>
+                <h2>{{ number_format($totalPenjualan, 0, ',', '.') }}</h2>
+                <p>Total Penjualan {{ $namaBulan }} {{ $tahun }}</p>
+            </div>
+            <div class="stat-icon icon-success">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
 
-             <!-- WRAPPER GRAFIK + PENJUALAN PRODUK -->
-            <div style="
-                display:flex;
-                gap:30px;
-                align-items:stretch;
-                margin-top:80px;
-            ">
+        <div class="card-custom stat-card">
+            <div class="stat-info">
+                <h6>Data Peramalan DES</h6>
+                <h2>{{ number_format($totalPeramalan, 0, ',', '.') }}</h2>
+                <p>Total Double Exp. Smoothing</p>
+            </div>
+            <div class="stat-icon icon-warning">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+        </div>
+    </div>
 
-                <!-- Grafik Trend -->
-                <div class="chart-box trend-card">
-
-                    <div class="chart-header">
-                        <div class="entries-control">
-                            <i class="fas fa-calendar-alt month-icon"></i>
-
-                            <select id="pilihBulan">
-                                @for ($i = 1; $i <= 12; $i++)
-                                    <option value="{{ $i }}" {{ $bulan==$i?'selected':'' }}>
-                                        {{ DateTime::createFromFormat('!m', $i)->format('F') }}
-                                    </option>
-                                @endfor
-                            </select>
-                        </div>
+    <!-- Charts Layout -->
+    <div class="dashboard-charts">
+        
+        <!-- Trend Penjualan Bulanan -->
+        <div>
+            <h4 class="page-section-title">Trend Penjualan Bulanan</h4>
+            <div class="card-custom">
+                <div class="chart-header">
+                    <div class="entries-select-wrapper">
+                        <select id="pilihBulan">
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ $bulan==$i?'selected':'' }}>
+                                    {{ DateTime::createFromFormat('!m', $i)->format('F') }}
+                                </option>
+                            @endfor
+                        </select>
+                        <i class="fas fa-chevron-down entries-chevron"></i>
                     </div>
-
-                    <div class="custom-title-penjualan">
-                        <span class="blue-line-penjualan"></span>
-                        <h4>Trend Penjualan Bulanan</h4>
-                    </div>
-
+                </div>
+                <div style="height: 650px; width: 100%;">
                     <canvas id="salesChart"></canvas>
-
                 </div>
-
-                <!-- Penjualan per Produk -->
-                <div class="chart-box penjualan-produk-card">
-
-                    <div class="custom-title-produk">
-                        <span class="blue-line-produk"></span>
-                        <h4>Penjualan per Produk</h4>
-                    </div>
-
-                    <div class="chart-wrapper">
-                        <canvas id="chartPenjualan"></canvas>
-                    </div>
-
-                    <div class="chart-subtitle">
-                        Distribusi Penjualan per Produk
-                    </div>
-
-                </div>
-
             </div>
+        </div>
+
+        <!-- Penjualan per Produk -->
+        <div>
+            <h4 class="page-section-title">Penjualan per Produk</h4>
+            <div class="card-custom">
+                <div style="height: 650px; width: 100%;">
+                    <canvas id="chartPenjualan"></canvas>
+                </div>
+                <div style="text-align:center; color:var(--text-muted); font-size:14px; margin-top:20px; font-weight: 500;">
+                    Distribusi Penjualan per Produk
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
@@ -662,7 +210,7 @@ let datasets = [{
     data: @json($dataPenjualan),
 
     // biru pudar
-    backgroundColor: 'rgba(67, 97, 238, 0.08)',
+    backgroundColor: 'rgba(67, 97, 238, 0.15)',
 
     // garis utama
     borderColor: '#4361ee',
@@ -684,7 +232,8 @@ function createChart(isDarkMode) {
         type: 'line',
         data: { labels: labels, datasets: datasets },
         options: {
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
@@ -833,7 +382,8 @@ function renderChartPenjualan() {
                                 ? "#334155"
                                 : "#ffffff",
 
-                        hoverOffset: 10
+                        hoverOffset: 10,
+                        radius: '70%'
                     }]
                 },
 
@@ -867,8 +417,6 @@ function renderChartPenjualan() {
                         legend: {
                             display: true,
                             position: 'bottom',
-
-                            maxHeight: 300,
 
                             labels: {
                                 color: isDark ? '#ffffff' : '#374151',

@@ -2,181 +2,87 @@
 
 @section('content')
 <style>
-    /* --- PERAPIHAN TAMPILAN GLOBAL HALAMAN INI --- */
-    .section-title-penjualan {
-        font-weight: bold;
-        margin-top: 30px;
-        margin-bottom: 15px;
-        color: #304c89; 
-        border-left: 5px solid #304c89; 
-        padding-left: 10px;
-        font-size: 18px;
+    .history-container {
+        margin-top: 20px;
+        font-family: 'Outfit', sans-serif;
     }
-
-    /* TABLE BORDER TEBAL (GARIS-GARIS) */
-    table.table-bordered {
-        border: 1px solid #2c3e50 !important;
-    }
-    table.table-bordered th,
-    table.table-bordered td {
-        border: 1px solid #2c3e50 !important;
-        vertical-align: middle !important;
-        text-align: center;
-        font-size: 14px;
-        background: #fff;
-    }
-
-    thead.table-dark th {
-        background: #2c3e50 !important;
-        color: white !important;
-    }
-
-    .card-custom {
-    background: #ffffff !important;
-    border: 1px solid #d0d4da !important;
-    border-radius: 12px !important;
-    padding: 25px !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-}
-.card-custom-prediksi {
-    background: #ffffff !important;
-    border: 1px solid #d0d4da !important;
-    border-radius: 12px !important;
-    padding: 25px !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-    width: 400px;
-}
-
-
-    .mt-small { margin-top: 10px; }
-
-     /* ===============================
-       MODAL
-    =============================== */
-    .modal {
-        visibility: hidden;
-        opacity: 0;
-        position: fixed;
-        z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+    
+    .page-section-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 25px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        background-color: rgba(0,0,0,0.4);
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    .modal.show {
-        visibility: visible;
-        opacity: 1;
+        gap: 12px;
     }
     
-    .modal-content {
-        background-color: #ffffff; 
-        margin: 2% auto;
-        padding: 0;
+    .search-box {
+        position: relative;
+    }
+    .search-box input {
+        width: 320px;
+        height: 42px;
         border-radius: 12px;
-        width: 1100px;
-        max-height: 90vh;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-        opacity: 0;
-        transform: scale(0.9);
-        transition: transform 0.35s ease, opacity 0.35s ease;
-        color: #3b4e71;
+        border: 1px solid var(--glass-border);
+        padding-left: 45px;
+        padding-right: 15px;
+        font-size: 14px;
+        background: var(--glass-bg);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        color: var(--text-main);
+        font-family: 'Outfit', sans-serif;
     }
-    .modal.show .modal-content {
-        transform: translateY(0);
-        opacity: 1;
+    .search-box input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(67, 24, 255, 0.1);
     }
-    
-    .modal-header {
-        background-color: #3b4e71;
-        color: #ffffff;
-        padding: 15px;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        font-size: 24px;
-        font-weight: 600;
+    .search-box i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
     }
-    
-    .modal-body {
-        padding: 20px;
-        overflow-y: auto;
-        flex: 1;
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
     }
-    
-    .modal-footer {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        padding: 15px 20px;
-        border-top: 1px solid #3b4e71;
-    }
-    .modal-footer button {
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
+
+    /* TOMBOL AKSI CIRCLE */
+    .btn-circle-aksi {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 0 !important;
+        border-radius: 12px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 15px !important;
+        border: none !important;
+        color: #fff !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         transition: all 0.2s ease;
+        cursor: pointer;
     }
-    
-    .modal-footer .btn-close {
-        background-color: #6c757d;
-        color: white;
-        font-size: 16px;
+    .btn-circle-aksi:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        color: #fff !important;
     }
-    .modal-footer .btn-close:hover {
-        background-color: #5a6268;
-    }
-    .modal-footer .btn-save {
-        background-color: #007bff;
-        color: white;
-        font-size: 16px;
-    }
-    .modal-footer .btn-save:hover {
-        background-color: #0056b3;
-    }
-    
-    /* INPUT inside modal (special width) */
-    .modal-body .form-control {
-        width: 500px;
-        display: block;
-        padding: 10px;
-        font-size: 16px;
-        margin-top: 10px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        border: 1px solid #3b4e71;
-        color: #3b4e71;
-    }
-    .modal-body .fw-bold {
-        font-size: 18px;
-    }
-    
-    /* MODAL TABLE STYLING */
-    #detailModal table th {
-        font-size: 15px !important;
-        padding: 12px 10px !important;
-    }
-    #detailModal table td {
-        font-size: 15px !important;
-        padding: 12px 10px !important;
-        vertical-align: middle;
-    }    
-       /* ===============================
-       BUTTONS
-    =============================== */
+    .btn-eye-aksi { background: linear-gradient(135deg, #01B574, #019962) !important; }
+    .btn-pdf-aksi { background: linear-gradient(135deg, #3b82f6, #2563eb) !important; }
+    .btn-del-aksi { background: linear-gradient(135deg, #ef4444, #dc2626) !important; }
+
     /* PAGINATION MODERN STYLING */
     .pagination {
         display: flex;
         justify-content: flex-end;
         gap: 8px;
-        margin-top: 10px;
+        margin-top: 20px;
         padding-left: 0;
         list-style: none;
     }
@@ -187,487 +93,133 @@
         min-width: 38px;
         height: 38px;
         padding: 0 14px;
-        border-radius: 8px !important;
-        border: 1px solid #e5e7eb;
-        background-color: #ffffff;
-        color: #4b5563;
+        border-radius: 10px !important;
+        border: 1px solid var(--glass-border);
+        background-color: var(--glass-bg);
+        color: var(--text-main);
         font-weight: 600;
         font-size: 14px;
         transition: all 0.2s ease;
         text-decoration: none;
-        margin-left: 4px;
+        font-family: 'Outfit', sans-serif;
     }
     .pagination .page-item.active .page-link {
-        background: linear-gradient(135deg, #304c89, #4361ee) !important;
+        background: var(--primary-color) !important;
         color: #ffffff !important;
         border-color: transparent !important;
-        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25) !important;
+        box-shadow: 0 4px 10px rgba(67, 24, 255, 0.25) !important;
     }
     .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
-        background-color: #f3f4f6;
-        color: #304c89;
-        border-color: #d1d5db;
+        background-color: rgba(67, 24, 255, 0.05);
+        color: var(--primary-color);
         transform: translateY(-2px);
     }
     .pagination .page-item.disabled .page-link {
-        color: #9ca3af;
-        background-color: #f9fafb;
+        color: var(--text-muted);
+        background-color: rgba(0, 0, 0, 0.02);
         cursor: not-allowed;
-        border-color: #e5e7eb;
     }
-    .musiman, .input-manual {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 600;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        border: none;
-    }
-    .input-manual {
-        background-color: #28a745;
-    }
-    .musiman:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-    .input-manual:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-    }
-    /* ============================
-        WRAPPER 3 TABEL 1 BARIS
-        ============================ */
-            /* Wrapper kolom dalam 1 card */
-        /* Lebarkan setiap tabel */
-        .col-tabel table {
-            width: 100% !important;      /* tabel memenuhi kolom */
-            table-layout: fixed !important; /* kolom rata & tidak sempit */
-        }
-
-        /* Lebarkan kolom wrapper */
-        .col-tabel {
-            flex: 1;
-            min-width: 400px;   /* tambah lebar tabel */
-        }
-
-        /* Biar jaraknya makin rapat */
-        .row-tabel-3 {
-            display: flex;
-            gap: 15px !important; 
-        }
-
-        /* ==== PERLEBAR TABEL UTAMA ==== */
-        #tabelGabunganBox table {
-            width: 100% !important;         /* tabel full container */
-            table-layout: fixed !important; /* kolom rata & tidak mepet */
-        }
-
-        /* Lebarkan kolom agar tidak sempit */
-        #tabelGabunganBox th,
-        #tabelGabunganBox td {
-            padding: 10px !important;
-            font-size: 15px;
-            vertical-align: middle;
-        }
-
-        /* CARD UTAMA DIPERLEBAR */
-        .card-custom {
-            width: 96% !important;
-            max-width: 100% !important;
-            padding: 25px !important;
-            margin: 0 auto;
-        }
-
-        /* Jika ingin tabel full screen lebar tampilan */
-        #tabelGabunganBox {
-            width: 100%;
-            overflow-x: auto;               /* antisipasi jika terlalu panjang */
-        }
-
-    /* =======================================
-    FORM PREDIKSI STYLE BARU
-    ======================================= */
-
-    .prediksi-wrapper{
-        margin-top: 30px;
-        background: #ffffff;
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    }
-
-    .prediksi-header{
-        background: linear-gradient(135deg, #304c89, #4361ee);
-        color: white;
-        padding: 26px 35px;
-        font-size: 22px;
+    
+    .badge-status {
+        border-radius: 10px;
+        padding: 6px 12px;
+        font-size: 12px;
         font-weight: 700;
+        margin-left: 8px;
+        font-family: 'Outfit', sans-serif;
     }
+    .badge-sangat-baik { background-color: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .badge-baik { background-color: rgba(234, 179, 8, 0.1); color: #eab308; }
+    .badge-wajar { background-color: rgba(249, 115, 22, 0.1); color: #f97316; }
+    .badge-buruk { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; }
 
-    .prediksi-body{
-        padding: 35px;
+    /* MODAL */
+    .modal {
+        visibility: hidden;
+        opacity: 0;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(5px);
+        z-index: 1050;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
-
-    /* GRID FORM */
-    .prediksi-grid{
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        align-items: start;
+    .modal.show {
+        visibility: visible;
+        opacity: 1;
     }
-
-    /* GROUP */
-    .prediksi-group{
+    .modal-content {
+        background: var(--card-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        width: 100%;
+        max-width: 1000px;
+        max-height: 90vh;
         display: flex;
         flex-direction: column;
-        width: 100%;
-    }
-
-    .group-kecil{
-        margin-left: 15px;
-    }
-    .group-kecil .prediksi-input{
-        width: 75%;
-        height: 40px;
-    }
-
-    .group-besar{
-        margin-left: -20px;
-    }
-    .group-besar .prediksi-input{
-        font-size: 18px;
-        width: 40%;
-        height: 40px;
-    }
-
-    /* LABEL */
-    .prediksi-group label{
-        font-size: 15px;
-        font-weight: 700;
-        color: #4b5563;
-        margin-bottom: 10px;
-        min-height: 24px; /* bikin semua label sejajar */
-    }
-
-    /* INPUT */
-    .prediksi-input{
-        width: 100%;
-        height: 40px;
-        border-radius: 7px;
-        border: 1px solid #d1d5db;
-        padding: 0 18px;
-        font-size: 16px;
-        outline: none;
-        transition: 0.3s;
-        background: #fff;
-    }
-
-    .prediksi-input:focus{
-        border-color: #4361ee;
-        box-shadow: 0 0 0 4px rgba(67,97,238,0.12);
-    }
-
-    /* NOTE */
-    .prediksi-note{
-        margin-top: 10px;
-        color: #9ca3af;
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-
-    /* MODE + BUTTON SEJAJAR */
-   .button-wrap{
-        grid-column: 4;
-        justify-self: end;
-        align-self: end;
-        margin-left: 0 !important;
-    }
-
-    /* BUTTON */
-    .prediksi-button-wrap{
-        display: flex;
-        align-items: end;
-        margin-bottom: 2px;
-    }
-
-    .btn-prediksi{
-        width: 170px;
-        height: 45px;
-        border: none;
-        border-radius: 7px;
-        background: linear-gradient(135deg, #304c89, #4361ee);
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        transition: 0.3s;
-    }
-
-    .btn-prediksi:hover{
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(67,97,238,0.25);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 1200px){
-        .prediksi-grid{
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 768px){
-        .prediksi-grid{
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* DARK MODE */
-    body.dark .prediksi-wrapper{
-        background: #334155;
-    }
-
-    body.dark .prediksi-input{
-        background: #475569;
-        border: 1px solid #64748b;
-        color: #f1f5f9;
-    }
-
-    body.dark .prediksi-group label{
-        color: #f1f5f9;
-    }
-
-    body.dark .prediksi-note{
-        color: #cbd5e1;
-    }
-
-    /* INPUT BULAN */
-    .input-bulan{
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         position: relative;
-        width: 40%;
-        margin-left: 100px;
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
     }
-
-    .input-bulan .prediksi-input{
-        width: 100%;
-        padding-right: 15px;
+    .modal.show .modal-content {
+        transform: scale(1);
     }
-
-    .bulan-label{
-        position: absolute;
-        right: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 16px;
-        font-weight: 600;
-        color: #6b7280;
-        pointer-events: none;
+    .modal-header {
+        padding: 24px;
+        border-bottom: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-
-        .event-note-wrapper{
-            margin-top: 14px;
-            padding-left: 2px;
+    .modal-header h5 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+    .modal-body {
+        padding: 24px;
+        overflow-y: auto;
+        flex: 1;
+    }
+    .modal-footer {
+        padding: 20px 24px;
+        border-top: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    @media (max-width: 768px) {
+        .search-box {
+            width: 100%;
         }
-
-        .event-note{
-            font-size: 13px;
-            color: #9ca3af;
-            font-weight: 500;
-            line-height: 1.6;
+        .search-box input {
+            width: 100%;
         }
-        /* ======================================
-        ATUR LEBAR MASING-MASING KOLOM
-        ====================================== */
-
-        /* Kolom No */
-        #tabelGabunganBox table th:nth-child(1),
-        #tabelGabunganBox table td:nth-child(1){
-            width: 40px !important;
-            min-width: 50px;
-            max-width: 50px;
+        .modal-content {
+            margin: 15px;
+            max-height: calc(100vh - 30px);
         }
-
-        /* Nama Produk (diperbesar) */
-        #tabelGabunganBox table th:nth-child(2),
-        #tabelGabunganBox table td:nth-child(2){
-            width: 180px !important;
-            min-width: 180px;
-            text-align: left !important;
-            padding-left: 15px !important;
-            white-space: normal !important;
-        }
-
-        /* α */
-        #tabelGabunganBox table th:nth-child(3),
-        #tabelGabunganBox table td:nth-child(3){
-            width: 60px !important;
-        }
-
-        /* β */
-        #tabelGabunganBox table th:nth-child(4),
-        #tabelGabunganBox table td:nth-child(4){
-            width: 60px !important;
-        }
-
-        /* Periode */
-        #tabelGabunganBox table th:nth-child(5),
-        #tabelGabunganBox table td:nth-child(5){
-            width: 75px !important;
-        }
-
-        /* MAD */
-        #tabelGabunganBox table th:nth-child(6),
-        #tabelGabunganBox table td:nth-child(6){
-            width: 70px !important;
-        }
-
-        /* MASE */
-        #tabelGabunganBox table th:nth-child(7),
-        #tabelGabunganBox table td:nth-child(7){
-            width: 70px !important;
-        }
-
-        /* MAPE */
-        #tabelGabunganBox table th:nth-child(8),
-        #tabelGabunganBox table td:nth-child(8){
-            width: 180px !important;
-        }
-
-        /* Tanggal */
-        #tabelGabunganBox table th:nth-child(9),
-        #tabelGabunganBox table td:nth-child(9){
-            width: 130px !important;
-        }
-
-        /* Aksi */
-        #tabelGabunganBox table th:nth-child(10),
-        #tabelGabunganBox table td:nth-child(10){
-            width: 130px !important;
-            white-space: nowrap;
-        }
-
-        .container.mt-4{
-            max-width: 100% !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-
-        /* ======================================
-        HEADER TABEL CUSTOM GRADIENT
-        ====================================== */
-        .custom-table-head th{
-            background: linear-gradient(
-                135deg,
-                #304c89,
-                #4361ee
-            ) !important;
-
-            color: #fff !important;
-            border-color: #2c3e50 !important;
-            text-align: center;
-            vertical-align: middle;
-            font-weight: 700;
-        }
-
-        .info-python{
-            margin-top: 12px;
-            margin-left: 2px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-
-            font-size: 13px;
-            color: #9ca3af;
-            font-weight: 500;
-        }
-
-        .info-python i{
-            font-size: 13px;
-        }
-        
-        /* TOMBOL AKSI CIRCLE */
-        .btn-circle-aksi {
-            width: 36px !important;
-            height: 36px !important;
-            padding: 0 !important;
-            border-radius: 50% !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            font-size: 16px !important;
-            border: none !important;
-            color: #fff !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        .btn-circle-aksi:hover {
-            transform: scale(1.1);
-            color: #fff !important;
-        }
-        .btn-eye-aksi { background-color: #3b82f6 !important; }
-        .btn-pdf-aksi { background-color: #10b981 !important; }
-        .btn-del-aksi { background-color: #ef4444 !important; }
-        .btn-del-aksi { background-color: #ef4444 !important; }
-
-        /* SEARCH BOX STYLING FROM PENJUALAN */
-        .search-box{
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .search-box input{
-            width: 400px;
-            height: 40px;
-
-            border-radius: 7px;
-            border: 1px solid #dbe2ea;
-
-            padding-left: 40px;
-            padding-right: 15px;
-
-            font-size: 14px;
-            background: #fff;
-
-            transition: .3s;
-        }
-
-        .search-box input:focus{
-            outline: none;
-            border-color: #4361ee;
-            box-shadow: 0 0 0 4px rgba(67,97,238,.12);
-        }
-
-        .search-box i{
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-        }
-
-        body.dark .search-box input{
-            background: #334155;
-            color: #fff;
-            border-color: #475569;
-        }
+    }
 </style>
-<div class="container mt-4">
-    <h2 class="mb-3" style="border-left: 5px solid #304c89; padding-left: 10px;"><i class="fas fa-history me-2"></i> History Prediksi Penjualan</h2>
+<div class="history-container">
+    <h2 class="page-section-title">
+        <i class="fas fa-history text-primary"></i> History Prediksi Penjualan
+    </h2>
 
     @if(session('success'))
-    <div class="alert" style="background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:8px;padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
-        <i class="fas fa-check-circle" style="font-size:18px;"></i>
+    <div class="alert" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+        <i class="fas fa-check-circle" style="font-size: 18px;"></i>
         <span>{{ session('success') }}</span>
-        <button onclick="this.parentElement.style.display='none'" style="margin-left:auto;background:none;border:none;font-size:18px;cursor:pointer;color:#065f46;">&times;</button>
+        <button onclick="this.parentElement.style.display='none'" style="margin-left: auto; background: none; border: none; font-size: 18px; cursor: pointer; color: #10b981;">&times;</button>
     </div>
     @endif
 
-    <div class="card shadow card-custom">
+    <div class="card-custom">
         <!-- SEARCH BOX -->
         <div class="d-flex justify-content-end p-3 border-bottom">
             <div class="search-box">
@@ -681,9 +233,9 @@
             </div>
         </div>
         
-        <div id="tabelGabunganBox" class="table-responsive">
-                <table class="table table-bordered mt-3">
-                    <thead class="custom-table-head">
+        <div id="tabelGabunganBox" class="table-wrapper">
+                <table class="table mt-3">
+                    <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama Produk</th>
@@ -691,7 +243,7 @@
                             <th>𝛽</th>
                             <th>Periode</th>
                             <th>MAD</th>
-                            <th>MASE</th>
+                            <th>MSE</th>
                             <th>MAPE (%)</th>
                             <th>Tanggal</th>
                             <th>Aksi</th>
@@ -707,17 +259,17 @@
                                 <td>{{ $it->beta }}</td>
                                 <td>{{ $it->periode_prediksi }} Bulan</td>
                                 <td>{{ $it->mad }}</td>
-                                <td>{{ $it->mase }}</td>
+                                <td>{{ $it->mse }}</td>
                                 <td style="white-space: nowrap;">
                                     {{ number_format($it->mape, 1) }}%
                                     @if($it->mape < 10)
-                                        <span class="badge" style="background-color: #10b981; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Sangat Baik</span>
+                                        <span class="badge-status badge-sangat-baik">Sangat Baik</span>
                                     @elseif($it->mape <= 20)
-                                        <span class="badge" style="background-color: #eab308; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Baik</span>
+                                        <span class="badge-status badge-baik">Baik</span>
                                     @elseif($it->mape <= 50)
-                                        <span class="badge" style="background-color: #f97316; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Wajar</span>
+                                        <span class="badge-status badge-wajar">Wajar</span>
                                     @else
-                                        <span class="badge" style="background-color: #ef4444; color: white; border-radius: 12px; padding: 4px 10px; font-size: 12px; font-weight: 700; margin-left: 8px;">Buruk</span>
+                                        <span class="badge-status badge-buruk">Buruk</span>
                                     @endif
                                 </td>
                                 <td>{{ $it->tanggal }}</td>
@@ -1006,13 +558,25 @@
                     { 
                         label: 'Penjualan Aktual', 
                         data: hSeries,
-                        borderWidth: 2 
+                        borderColor: '#4318FF',
+                        backgroundColor: 'rgba(67, 24, 255, 0.15)',
+                        fill: true,
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#4318FF'
                     },
                     { 
                         label: 'Prediksi DES (Holt)', 
                         data: fSeries,
+                        borderColor: '#01B574',
+                        backgroundColor: 'rgba(1, 181, 116, 0.15)',
+                        fill: true,
                         borderWidth: 3, 
-                        borderDash: [6,4] 
+                        borderDash: [6,4],
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#01B574'
                     }
                 ]
             },

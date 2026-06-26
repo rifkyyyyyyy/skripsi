@@ -92,7 +92,7 @@ class HistoryPrediksiController extends Controller
         $html .= '<tr><td>Beta (β)</td><td>: ' . $it->beta . '</td></tr>';
         $html .= '<tr><td>Periode Prediksi</td><td>: ' . $it->periode_prediksi . ' Bulan</td></tr>';
         $html .= '<tr><td>MAD</td><td>: ' . $it->mad . '</td></tr>';
-        $html .= '<tr><td>MASE</td><td>: ' . $it->mase . '</td></tr>';
+        $html .= '<tr><td>MSE</td><td>: ' . $it->mse . '</td></tr>';
         $html .= '<tr><td>MAPE</td><td>: ' . number_format($it->mape, 1) . '%</td></tr>';
         $html .= '<tr><td>Tanggal Prediksi</td><td>: ' . $it->tanggal . '</td></tr>';
         $html .= '</table></div>';

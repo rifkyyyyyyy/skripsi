@@ -230,9 +230,9 @@ class PrediksiController extends Controller
             1
         );
 
-        $mase = round(
+        $mse = round(
             collect($fittedRows)
-            ->avg('mase'),
+            ->avg('mse'),
             3
         );
 
@@ -283,8 +283,8 @@ class PrediksiController extends Controller
                     'mad' =>
                     $mad,
 
-                    'mase' =>
-                    $mase,
+                    'mse' =>
+                    $mse,
 
                     'mape' =>
                     $mape,
@@ -458,6 +458,11 @@ class PrediksiController extends Controller
                     - $forecast
                 );
 
+            $sq_error = pow(
+                $error,
+                2
+            );
+
             $ape =
                 $y[$t] != 0
                 ? (
@@ -516,6 +521,12 @@ class PrediksiController extends Controller
                         2
                     ),
 
+                'mse' =>
+                    round(
+                        $sq_error,
+                        2
+                    ),
+
                 'mape' =>
                     round(
                         $ape,
@@ -524,45 +535,7 @@ class PrediksiController extends Controller
             ];
         }
 
-        /*
-        HITUNG MASE
-        */
-        $naiveErrors = [];
 
-        for (
-            $i = 1;
-            $i < count($y);
-            $i++
-        ) {
-
-            $naiveErrors[] =
-                abs(
-                    $y[$i]
-                    - $y[$i - 1]
-                );
-        }
-
-        $naiveMae =
-            array_sum(
-                $naiveErrors
-            )
-            / count(
-                $naiveErrors
-            );
-
-        foreach (
-            $rows as $i => $row
-        ) {
-
-            $rows[$i]['mase'] =
-                $naiveMae == 0
-                ? 0
-                : round(
-                    $row['mad']
-                    / $naiveMae,
-                    3
-                );
-        }
 
         return $rows;
     }
@@ -653,7 +626,7 @@ class PrediksiController extends Controller
         ) * 100;
     }
 
-    private function mae(
+    private function mad(
         $actual,
         $fitted
     ) {
@@ -679,17 +652,11 @@ class PrediksiController extends Controller
             );
     }
 
-    private function mase(
+    private function mse(
         $actual,
         $fitted
     ) {
-        $mae =
-            $this->mae(
-                $actual,
-                $fitted
-            );
-
-        $naiveErrors = [];
+        $sum = 0;
 
         for (
             $i = 1;
@@ -697,26 +664,18 @@ class PrediksiController extends Controller
             $i++
         ) {
 
-            $naiveErrors[] =
-                abs(
-                    $actual[$i]
-                    -
-                    $actual[$i - 1]
-                );
+            $sum += pow(
+                $actual[$i]
+                - $fitted[$i],
+                2
+            );
         }
 
-        $naiveMae =
-            array_sum(
-                $naiveErrors
-            )
-            / count(
-                $naiveErrors
-            );
-
         return
-            $naiveMae == 0
-            ? 0
-            : $mae
-            / $naiveMae;
+            $sum
+            / (
+                count($actual)
+                - 1
+            );
     }
 }

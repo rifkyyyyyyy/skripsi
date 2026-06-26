@@ -238,7 +238,7 @@ function updatePredictionTable(data) {
                 <td>
                     ${
                         metric
-                        ? metric.mase
+                        ? metric.mse
                         : 0
                     }
                 </td>
@@ -303,7 +303,7 @@ function updatePredictionTable(data) {
                 <td>
                     ${
                         lastMetric
-                        ? lastMetric.mase
+                        ? lastMetric.mse
                         : 0
                     }
                 </td>
@@ -411,7 +411,13 @@ document.getElementById('formPrediksi').addEventListener('submit', function(e){
                             ...historyData,
                             ...Array(forecastData.length).fill(null)
                         ],
-                        borderWidth:2
+                        borderColor: '#4318FF',
+                        backgroundColor: 'rgba(67, 24, 255, 0.15)',
+                        fill: true,
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#4318FF'
                     },
                     {
                         label:"Prediksi DES (Holt)",
@@ -419,8 +425,14 @@ document.getElementById('formPrediksi').addEventListener('submit', function(e){
                             ...Array(historyData.length).fill(null),
                             ...forecastData
                         ],
-                        borderWidth:3,
-                        borderDash:[6,4]
+                        borderColor: '#01B574',
+                        backgroundColor: 'rgba(1, 181, 116, 0.15)',
+                        fill: true,
+                        borderWidth: 3,
+                        borderDash: [6,4],
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#01B574'
                     }
                 ]
             },
